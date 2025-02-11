@@ -3,32 +3,34 @@ const pool = require ("../config/db.js");
   getAllUsersService = async () => {
 
     const result = pool.query("SELECT * FROM users");
-    return result.rows;
+    return result
     
 }
 
  getUserByIdService = async (id) => {
 
-    const result = pool.query("SELECT * FROM users WHERE id = $1",[id]);
-    return result.rows[0];
+    const result = pool.query("SELECT * FROM users WHERE id=$1",[id]);
+    return result
     
 }
  updateUserService = async (name,email,id) => {
-    const result = await pool.query("UPDATE users SET name=$1,email=$2 WHERE id=$3 RETURNING *",[name, email, id]);
-    return results.rows[0];
+    const results = await pool.query("UPDATE users SET name=$1,email=$2 WHERE id=$3 RETURNING *",[name, email, id]);
+  console.log(results);
+
+    return results
     
 }
  deleteUserService = async (id) => {
-    const result = await pool.query("DELETE FROM users WHERE id=$1 RETURNING *",[id]);
+    const results = await pool.query("DELETE FROM users WHERE id=$1 RETURNING *",[id]);
 
-    return results.rows[0];
+    return results
     
     
 }
   CreateUserService = async (email,name) => {
 
-    const result = await pool.query("INSERT INTO users (name, email) VALUES ($1,$2) RETURNING *",[name,email]);
-    return result.rows[0];
+    const result = await pool.query("INSERT INTO users (email, name) VALUES ($1,$2) RETURNING *",[name,email]);
+    return result
 
 }
 
